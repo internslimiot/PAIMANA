@@ -7,9 +7,7 @@ import {
   CheckCircle2, 
   FileCheck,
   Rocket,
-  Clock,
-  CheckCircle,
-  Circle
+  Clock
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';

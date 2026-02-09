@@ -151,7 +151,6 @@ const Home = () => {
                   className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg font-semibold text-base transition-all duration-300 border-2"
                   style={{
                     borderColor: '#1e4a7e',
-                    color: '#1e4a7e',
                     background: '#1e4a7e',
                     color: 'white',
                   }}
@@ -223,7 +222,7 @@ const Home = () => {
         <div className="container-custom">
           {/* Projects Grid - 5 cards in a row */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {keyInitiatives.map((initiative, index) => (
+            {keyInitiatives.map((initiative) => (
               <Link
                 key={initiative.title}
                 to={initiative.path}
@@ -266,7 +265,7 @@ const Home = () => {
 
           {/* Quick Access Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickAccess.map((item, index) => (
+            {quickAccess.map((item) => (
               <Link
                 key={item.title}
                 to={item.path}
