@@ -37,24 +37,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Government Info - Left Column */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-14 h-14 flex items-center justify-center overflow-hidden bg-transparent">
-                <img
-                  src="/lion_logo2.png"
-                  alt="Government of India"
-                  className="h-full w-auto object-contain"
-                  style={{
-                    mixBlendMode: 'screen',
-                  }}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-white font-bold text-lg">GOI</span>';
-                  }}
-                />
-              </div>
-              <div>
-                <h3 className="font-poppins font-semibold text-lg">Government of India</h3>
-              </div>
+            <div className="mb-4">
+              <img
+                src="/navbar_logo.png"
+                alt="Government of India - Ministry of Statistics and Programme Implementation"
+                className="h-12 md:h-14 w-auto"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-white font-bold text-lg">GOI</span>';
+                }}
+              />
             </div>
             <p className="text-sm text-white/80 mb-4">
               Ministry of Statistics & Programme Implementation

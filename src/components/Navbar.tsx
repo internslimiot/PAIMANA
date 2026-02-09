@@ -4,10 +4,9 @@ import { Menu, X, User } from 'lucide-react';
 
 interface NavbarProps {
   variant?: 'main' | 'project';
-  projectName?: string;
 }
 
-const Navbar = ({ variant = 'main', projectName }: NavbarProps) => {
+const Navbar = ({ variant = 'main' }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -65,27 +64,20 @@ const Navbar = ({ variant = 'main', projectName }: NavbarProps) => {
       <div className="container-custom">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group flex-shrink-0">
-            <div className="w-12 h-12 flex items-center justify-center overflow-hidden bg-transparent">
-              <img
-                src="/lion_logo2.png"
-                alt="Government of India"
-                className="h-full w-auto object-contain"
-                style={{
-                  mixBlendMode: 'multiply',
-                }}
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-paimana-blue text-xs font-bold">GOI</span>';
-                }}
-              />
-            </div>
-            <div className={`transition-colors duration-300 ${isScrolled ? 'text-paimana-dark-blue' : 'text-paimana-dark-blue'}`}>
-              <span className="font-poppins font-semibold text-sm md:text-base">Government of India</span>
-              {projectName && (
-                <span className="hidden md:block text-xs opacity-80">{projectName}</span>
-              )}
-            </div>
+          <Link to="/" className="flex items-center group flex-shrink-0">
+            <img
+              src="/navbar_logo.png"
+              alt="Government of India - Ministry of Statistics and Programme Implementation"
+              className="h-12 md:h-14 w-auto object-contain"
+              style={{
+                mixBlendMode: 'multiply',
+                filter: 'contrast(1.1)',
+              }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+                (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-paimana-blue text-xs font-bold">GOI</span>';
+              }}
+            />
           </Link>
 
           {/* Desktop Navigation & Login Button - All aligned to right */}

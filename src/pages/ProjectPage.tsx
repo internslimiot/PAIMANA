@@ -183,25 +183,10 @@ const ProjectPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar variant="project" projectName={project.name} />
+      <Navbar variant="project" />
       
-      {/* Breadcrumb */}
-      <div className="pt-24 pb-4 bg-white border-b border-gray-200">
-        <div className="container-custom">
-          <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link to="/" className="hover:text-paimana-blue transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-paimana-blue font-medium">
-              {location.pathname === '/nie-i-state' ? 'NIE-I State' : 
-               location.pathname === '/nie-i-ministry' ? 'NIE-I Ministry' : 
-               project.name}
-            </span>
-          </nav>
-        </div>
-      </div>
-
       {/* Main Content Section */}
-      <section className="py-12 bg-white">
+      <section className="pt-24 py-12 bg-white">
         <div className="container-custom">
           <div className="max-w-5xl mx-auto">
             {/* Logo and Title */}
