@@ -33,8 +33,8 @@ const projectsData: Record<string, ProjectData> = {
   'nie-i-state': {
     id: 'nie-i-state',
     name: 'NIE-I',
-    fullName: 'National Indicator Framework for States (NIE-I)',
-    description: 'National Indicator Framework for States (NIE-I State) is an initiative under the Government of India\'s PAIMANA platform, designed to monitor and assess the development goals and indicators at the state level.',
+    fullName: 'National Infrastructure Enablement Index - State (NIE-I)',
+    description: 'National Infrastructure Enablement Index (NIE-I State) is an initiative under the Government of India\'s PAIMANA platform, designed to monitor and assess infrastructure enablement and development indicators at the state level.',
     logo: '/niei-logo.jpg',
     color: 'blue',
     objective: 'Track progress on Sustainable Development Goals (SDGs) at the state level.',
@@ -54,8 +54,8 @@ const projectsData: Record<string, ProjectData> = {
   'nie-i-ministry': {
     id: 'nie-i-ministry',
     name: 'NIE-I',
-    fullName: 'National Indicator Framework for Ministries (NIE-I)',
-    description: 'National Indicator Framework for Ministries (NIE-I Ministry) is an initiative under the Government of India\'s PAIMANA platform, designed to monitor and assess the development goals and indicators at the ministry level.',
+    fullName: 'National Infrastructure Enablement Index - Ministry (NIE-I)',
+    description: 'National Infrastructure Enablement Index (NIE-I Ministry) is an initiative under the Government of India\'s PAIMANA platform, designed to monitor and assess infrastructure enablement and development indicators at the ministry level.',
     logo: '/project-nie-ministry.jpg',
     color: 'orange',
     objective: 'Monitor and evaluate ministry-level initiatives and their impact on national development goals.',

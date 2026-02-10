@@ -101,6 +101,14 @@ const About = () => {
                   From tracking Sustainable Development Goals at the state level to monitoring ministry-level 
                   projects, PAIMANA ensures transparency, accountability, and efficiency in government operations.
                 </p>
+                <div className="mt-6">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-paimana-blue hover:bg-paimana-dark-blue text-white font-medium transition-colors shadow-sm"
+                  >
+                    Contact Us
+                  </Link>
+                </div>
               </div>
             </div>
             <div className="relative">
@@ -187,12 +195,12 @@ const About = () => {
             {[
               {
                 name: 'NIE-I State',
-                description: 'National Indicator Framework for States - monitoring SDGs at state level',
+                description: 'National Infrastructure Enablement Index - monitoring at state level',
                 path: '/nie-i-state',
               },
               {
                 name: 'NIE-I Ministry',
-                description: 'National Indicator Framework for Ministries - tracking ministry projects',
+                description: 'National Infrastructure Enablement Index - tracking at ministry level',
                 path: '/nie-i-ministry',
               },
               {
@@ -243,7 +251,7 @@ const About = () => {
                 View Public Dashboard
               </Link>
               <Link to="/contact" className="btn-secondary">
-                Contact Support
+                Contact Us
               </Link>
             </div>
           </div>

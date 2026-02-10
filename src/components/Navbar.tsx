@@ -1,46 +1,51 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, ChevronDown } from 'lucide-react';
 
 interface NavbarProps {
   variant?: 'main' | 'project';
 }
 
+const projectLinks = [
+  { label: 'NIE-I State', path: '/nie-i-state' },
+  { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
+  { label: 'Project Monitoring', path: '/project-monitoring' },
+  { label: 'Performance Monitoring', path: '/performance-monitoring' },
+  { label: 'TPP', path: '/tpp' },
+];
+
 const Navbar = ({ variant = 'main' }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [isMobileProjectsOpen, setIsMobileProjectsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsProjectsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const mainNavItems = [
-    { label: 'NIE-I State', path: '/nie-i-state' },
-    { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
-    { label: 'Project Monitoring', path: '/project-monitoring' },
-    { label: 'Performance Monitoring', path: '/performance-monitoring' },
-    { label: 'TPP', path: '/tpp' },
-    { label: 'User Manuals', path: '/user-manuals' },
-    { label: 'Contact Us', path: '/contact' },
-  ];
-
-  const projectNavItems = [
     { label: 'Home', path: '/' },
-    { label: 'NIE-I State', path: '/nie-i-state' },
-    { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
-    { label: 'Project Monitoring', path: '/project-monitoring' },
-    { label: 'Performance Monitoring', path: '/performance-monitoring' },
-    { label: 'TPP', path: '/tpp' },
+    { label: 'Dashboard', path: '/public-dashboard' },
     { label: 'User Manual', path: '/user-manuals' },
+    { label: 'About Us', path: '/about' },
   ];
-
-  const navItems = variant === 'main' ? mainNavItems : projectNavItems;
 
   const isActive = (path: string) => {
     if (path.startsWith('#')) return false;
@@ -83,16 +88,56 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
           {/* Desktop Navigation & Login Button - All aligned to right */}
           <div className="flex items-center gap-2 xl:gap-4 flex-1 justify-end">
             <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 flex-wrap justify-end">
-              {navItems.map((item) => (
+              {/* Home */}
+              <Link
+                to="/"
+                className={`px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium transition-all duration-200 relative group whitespace-nowrap ${
+                  isActive('/') ? 'text-paimana-blue' : 'text-gray-700 hover:text-paimana-blue'
+                }`}
+              >
+                Home
+                <span
+                  className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-paimana-blue transition-all duration-250 ${
+                    isActive('/') ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                />
+              </Link>
+              {/* Projects dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsProjectsOpen(!isProjectsOpen)}
+                  className={`px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium transition-all duration-200 flex items-center gap-0.5 whitespace-nowrap ${
+                    projectLinks.some((p) => isActive(p.path)) ? 'text-paimana-blue' : 'text-gray-700 hover:text-paimana-blue'
+                  }`}
+                >
+                  Projects
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isProjectsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isProjectsOpen && (
+                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+                    {projectLinks.map((p) => (
+                      <Link
+                        key={p.path}
+                        to={p.path}
+                        onClick={() => setIsProjectsOpen(false)}
+                        className={`block px-4 py-2.5 text-sm font-medium transition-colors ${
+                          isActive(p.path) ? 'bg-paimana-light-blue text-paimana-blue' : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {p.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {/* User Manual, About Us */}
+              {mainNavItems.filter((item) => item.path !== '/').map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   className={`px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium transition-all duration-200 relative group whitespace-nowrap ${
-                    isActive(item.path)
-                      ? 'text-paimana-blue'
-                      : isScrolled
-                      ? 'text-gray-700 hover:text-paimana-blue'
-                      : 'text-gray-700 hover:text-paimana-blue'
+                    isActive(item.path) ? 'text-paimana-blue' : 'text-gray-700 hover:text-paimana-blue'
                   }`}
                 >
                   {item.label}
@@ -134,21 +179,58 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4 animate-fade-in">
             <nav className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive(item.path)
-                      ? 'bg-paimana-light-blue text-paimana-blue'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
+              <Link
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('/') ? 'bg-paimana-light-blue text-paimana-blue' : 'text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                Home
+              </Link>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileProjectsOpen(!isMobileProjectsOpen)}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
-                  {item.label}
-                </Link>
-              ))}
-              {/* Login Button in Mobile Menu - Only show on project pages */}
+                  Projects
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileProjectsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMobileProjectsOpen && (
+                  <div className="pl-4 mt-1 flex flex-col gap-1">
+                    {projectLinks.map((p) => (
+                      <Link
+                        key={p.path}
+                        to={p.path}
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setIsMobileProjectsOpen(false);
+                        }}
+                        className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                          isActive(p.path) ? 'bg-paimana-light-blue text-paimana-blue' : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {p.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {mainNavItems
+                .filter((item) => item.path !== '/')
+                .map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                      isActive(item.path) ? 'bg-paimana-light-blue text-paimana-blue' : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               {variant === 'project' && (
                 <button
                   onClick={() => {
