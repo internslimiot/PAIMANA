@@ -12,7 +12,8 @@ const Footer = () => {
   const projects = [
     { label: 'NIE-I State', path: '/nie-i-state' },
     { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
-    { label: 'Project Monitoring', path: '/project-monitoring' },
+    { label: 'Project Monitoring (Input CUF FORM)', path: '/project-monitoring-input' },
+    { label: 'Project Monitoring (Output Flash Reports)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
     { label: 'Performance Monitoring', path: '/performance-monitoring' },
     { label: 'TPP', path: '/tpp' },
   ];
@@ -39,9 +40,13 @@ const Footer = () => {
           <div>
             <div className="mb-4">
               <img
-                src="/navbar_logo.png"
+                src="https://www.mospi.gov.in/uploads/primaryLogo/primaryLogo-1dee0dd9-99fd-4b8f-a352-7a53e0655404.svg"
                 alt="Government of India - Ministry of Statistics and Programme Implementation"
                 className="h-12 md:h-14 w-auto"
+                style={{
+                  backgroundColor: 'transparent',
+                  background: 'transparent',
+                }}
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                   (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-white font-bold text-lg">GOI</span>';
@@ -84,13 +89,25 @@ const Footer = () => {
             <ul className="space-y-2">
               {projects.map((project) => (
                 <li key={project.path}>
-                  <Link
-                    to={project.path}
-                    className="text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
-                    {project.label}
-                  </Link>
+                  {project.path.startsWith('http') ? (
+                    <a
+                      href={project.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
+                      {project.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={project.path}
+                      className="text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
+                      {project.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
